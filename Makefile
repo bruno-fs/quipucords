@@ -68,7 +68,7 @@ server-set-superuser:
 server-init: server-migrate server-set-superuser
 
 setup-postgres:
-	docker run --name qpc-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:9.6.10
+	docker run --name qpc-db -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:14.1
 
 server-static:
 	$(PYTHON) quipucords/manage.py collectstatic --settings quipucords.settings --no-input
