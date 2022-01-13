@@ -1,4 +1,4 @@
-[![GitHub license](https://img.shields.io/github/license/quipucords/quipucords.svg)](https://github.com/quipucords/quipucords/blob/master/LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](/LICENSE)
 [![Test Status](https://github.com/quipucords/quipucords/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/quipucords/quipucords/actions?query=branch%3Amaster)
 [![Code Coverage](https://codecov.io/gh/quipucords/quipucords/branch/master/graph/badge.svg)](https://codecov.io/gh/quipucords/quipucords)
 [![Documentation Status](https://readthedocs.org/projects/quipucords/badge/)](https://quipucords.readthedocs.io/en/latest/)
