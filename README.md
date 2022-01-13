@@ -1,5 +1,5 @@
 [![GitHub license](https://img.shields.io/github/license/quipucords/quipucords.svg)](https://github.com/quipucords/quipucords/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/quipucords/quipucords.svg?branch=master)](https://travis-ci.org/quipucords/quipucords)
+[![Test Status](https://github.com/quipucords/quipucords/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/quipucords/quipucords/actions?query=branch%3Amaster)
 [![Code Coverage](https://codecov.io/gh/quipucords/quipucords/branch/master/graph/badge.svg)](https://codecov.io/gh/quipucords/quipucords)
 [![Documentation Status](https://readthedocs.org/projects/quipucords/badge/)](https://quipucords.readthedocs.io/en/latest/)
 [![Updates](https://pyup.io/repos/github/quipucords/quipucords/shield.svg)](https://pyup.io/repos/github/quipucords/quipucords/)
