@@ -17,7 +17,7 @@ setup(
     setup_requires=["setuptools-git-versioning"],
     setuptools_git_versioning={
         "enabled": True,
-        "dev_template": "{tag}-{ccount}-{sha}",
-        "dirty_template": "{tag}-{ccount}-{sha}.dirty",
+        "dev_template": "{tag}.dev{ccount}",
+        "dirty_template": "{tag}.dev{ccount}a",
     },
 )

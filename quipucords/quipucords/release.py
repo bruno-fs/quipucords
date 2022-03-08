@@ -18,8 +18,13 @@
 import re
 from importlib.metadata import version
 
+import pkg_resources  # part of setuptools
+version = pkg_resources.require("quipucords")[0].version
+raise Exception(version)
+
 BUILD_VERSION = version("quipucords")
 DEFAULT_VERSION = '0.0.0'
+
 
 # pylint: disable=anomalous-backslash-in-string
 VERSION_PATTERN = re.compile('\d+\.\d+\.\d+')  # noqa: E501,605 (invalid-escape-sequence)
