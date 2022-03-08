@@ -14,10 +14,10 @@ setup(
     python_requires=">=3.6",
     # Runtime dependencies are not included here. Only setuptools-git-versioning for proper version resolution.
     # Check requirements.txt and dev-requirements.txt for production and development dependencies
-    # setup_requires=["setuptools-git-versioning"],
-    # setuptools_git_versioning={
-    #     "enabled": True,
-    #     "dev_template": "{tag}.dev{ccount}",
-    #     "dirty_template": "{tag}.dev{ccount}a",
-    # },
+    setup_requires=["setuptools-git-versioning"],
+    setuptools_git_versioning={
+        "enabled": True,
+        "dev_template": "{tag}.dev{ccount}",
+        "dirty_template": "{tag}.dev{ccount}a",
+    },
 )

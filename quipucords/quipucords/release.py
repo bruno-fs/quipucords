@@ -16,13 +16,7 @@
 #
 """File to hold release constants."""
 import re
-from importlib.metadata import version, distribution
-
-# raise Exception(distribution("quipucords").name)
-
-import pkg_resources  # part of setuptools
-version = pkg_resources.require("quipucords")[0].version
-raise Exception(version)
+from importlib.metadata import version
 
 BUILD_VERSION = version("quipucords")
 DEFAULT_VERSION = '0.0.0'
