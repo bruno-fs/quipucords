@@ -12,3 +12,4 @@ whitenoise==5.2.0
 psycopg2-binary==2.8.6
 ansible-runner==1.4.6
 gunicorn==20.0.4
+setuptools-git-versioning==1.8.1

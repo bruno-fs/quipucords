@@ -32,7 +32,6 @@ jobs:
       - name: Bump version
         run: |
             sed -i 's/BUILD_VERSION_PLACEHOLDER/${{ env.BUILD_VERSION }}/g' ${{ env.RELEASE_INFO_FILE }}
-            sed -i 's/BUILD_VERSION_PLACEHOLDER/${{ env.BUILD_VERSION }}/g' ${{ env.RELEASE_PY_FILE }}
 
       - name: Clone UI repo
         uses: actions/checkout@v2
