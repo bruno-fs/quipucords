@@ -15,8 +15,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 """File to hold release constants."""
-from importlib.metadata import version
 import re
+from importlib.metadata import version
 
 BUILD_VERSION = version("quipucords")
 DEFAULT_VERSION = '0.0.0'
