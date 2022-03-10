@@ -12,3 +12,8 @@ whitenoise==5.2.0
 psycopg2-binary==2.8.6
 ansible-runner==1.4.6
 gunicorn==20.0.4
+
+# PyYAML requirements - cachito is skipping these for some reason
+setuptools==60.8.2
+wheel==0.37.1
+Cython==0.29.28
