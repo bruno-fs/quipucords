@@ -1,4 +1,5 @@
 setuptools
 wheel
+flit_core<4,>=3.2.0
 setuptools-rust>=0.11.4
 setuptools_scm[toml]>=3.4.3
