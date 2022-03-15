@@ -4,6 +4,14 @@
 #
 #    pip-compile --allow-unsafe --generate-hashes --output-file=requirements-build.txt requirements-build.in
 #
+asn1==2.5.0 \
+    --hash=sha256:34fcb0de372a89f745dcdd00ca4c8fcd1ad2c00b33c1f016b1befe36842d07f3 \
+    --hash=sha256:7a8f07df88a1799f1bdb5c479d626975735bef2d75c99e26b19856a7e031cb2e
+    # via -r requirements-build.in
+enum-compat==0.0.3 \
+    --hash=sha256:3677daabed56a6f724451d585662253d8fb4e5569845aafa8bb0da36b1a8751e \
+    --hash=sha256:88091b617c7fc3bbbceae50db5958023c48dc40b50520005aa3bf27f8f7ea157
+    # via asn1
 flit-core==3.7.1 \
     --hash=sha256:14955af340c43035dbfa96b5ee47407e377ee337f69e70f73064940d27d0a44f \
     --hash=sha256:e454fdbf68c7036e1c7435ec7479383f9d9a1650ca5b304feb184eba1efcdcef
