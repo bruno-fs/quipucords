@@ -1,16 +1,24 @@
 FROM redhat/ubi8
 
-RUN dnf -yq install python39 make openssh-clients glibc-langpack-en &&\
-    dnf clean all &&\
-    python3 -m venv /opt/venv
+ARG BUILDREQUIRES='python39-devel gcc libpq-devel libffi-devel openssl-devel rust cargo'
+RUN dnf -y install \
+    gettext \
+    glibc-langpack-en \
+    make \
+    openssh-clients \
+    python39 \
+    $BUILDREQUIRES &&\
+    dnf clean all
+RUN python3 -m venv /opt/venv
 
 ENV PATH="/opt/venv/bin:${PATH}"
 
-RUN pip install --upgrade pip
+# RUN pip install --upgrade pip
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+#RUN python3 -m setuptools
+RUN pip install --require-hashes --no-binary :all: -r requirements.txt
 
 # Create /etc/ssl/qpc
 RUN mkdir -p /etc/ssl/qpc/
@@ -38,6 +46,7 @@ VOLUME /etc/ansible/roles/
 
 # Copy server code
 COPY . .
+RUN pip install .
 
 # Set production environment
 ARG BUILD_COMMIT=master

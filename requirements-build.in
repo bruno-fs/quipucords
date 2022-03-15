@@ -1,6 +1,6 @@
 setuptools
 wheel
-asn1
+Cython
 flit_core<4,>=3.2.0
 pbr>=1.8
 setuptools-rust>=0.11.4
