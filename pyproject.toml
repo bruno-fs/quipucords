@@ -3,7 +3,6 @@
 requires = [
     "setuptools", 
     "setuptools-git-versioning",
-    "toml",
     "wheel",
 ]  # PEP 508 specifications.
 

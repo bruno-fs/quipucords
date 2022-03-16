@@ -1,6 +1,6 @@
 FROM redhat/ubi8
 
-RUN dnf -yq install python39 make openssh-clients glibc-langpack-en &&\
+RUN dnf -yq install python39 make openssh-clients glibc-langpack-en git &&\
     dnf clean all &&\
     python3 -m venv /opt/venv
 
@@ -9,7 +9,10 @@ ENV PATH="/opt/venv/bin:${PATH}"
 WORKDIR /app
 COPY requirements.txt .
 
-RUN pip install -U pip setutools wheel &&\
+# persist pip cache to speed up builds
+VOLUME /root/.cache/pip
+
+RUN pip install -U pip setuptools wheel &&\
     pip install -r requirements.txt
 
 # Create /etc/ssl/qpc
@@ -38,10 +41,7 @@ VOLUME /etc/ansible/roles/
 
 # Copy server code
 COPY . .
-RUN pip install -e .
-
-# Collect static files
-RUN make server-static
+RUN pip install -v -e .
 
 # Set production environment
 ARG BUILD_COMMIT=master
@@ -59,6 +59,8 @@ ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV PYTHONPATH=/app/quipucords
 
+# Collect static files
+RUN make server-static
 
 EXPOSE 443
 CMD ["/bin/bash", "/deploy/docker_run.sh"]
