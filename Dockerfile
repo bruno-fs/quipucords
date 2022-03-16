@@ -41,7 +41,15 @@ VOLUME /etc/ansible/roles/
 
 # Copy server code
 COPY . .
-RUN pip install -v -e .
+
+# Copy UI code
+RUN curl -k -SL https://github.com/quipucords/quipucords-ui/releases/download/0.9.3/quipucords-ui-dist.tar.gz -o ui-dist.tar.gz &&\
+    tar -xzvf ui-dist.tar.gz &&\
+    mv dist/templates quipucords/quipucords/templates &&\
+    mv dist/client quipucords/client &&\
+    rm -rf ui-dist* dist
+
+RUN pip install -v .
 
 # Set production environment
 ARG BUILD_COMMIT=master

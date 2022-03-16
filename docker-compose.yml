@@ -1,26 +1,31 @@
 services:
   qpc-server:
-    build: .
+    # build: .
+    # image: quay.io/quipucords/quipucords:1.0.0rc
+    # image: registry-proxy.engineering.redhat.com/rh-osbs/discovery-discovery-server-rhel8:discovery-1.0-rhel-8-containers-candidate-40142-20220316151534
+    image: registry-proxy.engineering.redhat.com/rh-osbs/discovery-discovery-server-rhel8:discovery-1.0-rhel-8-containers-candidate-38526-20220316155814
     environment:
       QPC_DBMS: postgres
       QPC_DBMS_DATABASE: postgres
-      QPC_DBMS_HOST: 10.0.2.2
+      # QPC_DBMS_HOST: 10.0.2.2
+      # QPC_DBMS_HOST: qpc-db
+      QPC_DBMS_HOST: host.containers.internal
       QPC_DBMS_PASSWORD: qpc
+      # QPC_DBMS_PORT: 5432
       QPC_DBMS_PORT: 54321
       QPC_DBMS_USER: qpc
       QPC_SERVER_PASSWORD: q1w2e3r4
       QPC_SERVER_TIMEOUT: 5
       QPC_SERVER_USERNAME: admin
-      USE_SUPERVISORD: "false"
 
     ports:
       - "9443:443"
-    volumes:
-      - .:/app
-      - ./deploy:/deploy
+    # volumes:
+    #   - .:/app
+    #   - ./deploy:/deploy
     depends_on:
       - qpc-db
-    network_mode: "slirp4netns:allow_host_loopback=true"
+    # network_mode: "slirp4netns:allow_host_loopback=true"
 
   qpc-db:
     image: postgres:14.1

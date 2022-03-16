@@ -4,6 +4,7 @@
 Dockerfile
 client
 quipucords/db.sqlite3
+quipucords.egg-info
 node_modules
 package-lock.json
 
@@ -11,3 +12,5 @@ logs
 *.log
 
 .DS_Store
+
+**.pyc
