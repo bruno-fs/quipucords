@@ -5,6 +5,6 @@ pip
 setuptools
 setuptools-rust>=0.11.4
 setuptools_scm[toml]>=3.4.3
-twine # required to build python-daemon > ansible-runner
+twine
 wheel
 setuptools_git_versioning
