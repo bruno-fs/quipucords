@@ -3,7 +3,13 @@
 requires = [
     "setuptools", 
     "wheel",
+    "setuptools-git-versioning",
 ]  # PEP 508 specifications.
+
+[tool.setuptools-git-versioning]
+enabled = true
+template = "{tag}"
+dev_template = "{tag}.dev{ccount}"
 
 [tool.darker]
 revision = "a362b28db064c7a4ee38fe66685ba891f33ee5ba"

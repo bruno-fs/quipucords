@@ -1,10 +1,8 @@
 from setuptools import find_packages, setup
 
-DEFAULT_VERSION = "1.0.0"
-
 setup(
     name="quipucords",
-    version=DEFAULT_VERSION,  # this is a placeholder which will be replaced by setup-tools-git-versioning
+    version="1.0.0",  # this is a placeholder which will be replaced by setup-tools-git-versioning
     packages=find_packages(include=["quipucords"]),
     include_package_data=True,
     classifiers=[
@@ -14,12 +12,4 @@ setup(
     ],
     license="GPLv3+",
     python_requires=">=3.7",
-    # Runtime dependencies are not included here. Only setuptools-git-versioning for proper version resolution.
-    # Check requirements.txt and dev-requirements.txt for production and development dependencies
-    setup_requires=["setuptools-git-versioning"],
-    setuptools_git_versioning={
-        "enabled": True,
-        "dev_template": "{tag}.dev{ccount}",
-        "starting_version": DEFAULT_VERSION,
-    },
 )
