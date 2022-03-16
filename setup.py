@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="quipucords",
-    version="1.0.0",  # this is a placeholder which will be replaced by setup-tools-git-versioning
+    version="0.0.0",  # placeholder version will be replaced by setuptools-scm
     packages=find_packages(include=["quipucords"]),
     include_package_data=True,
     classifiers=[

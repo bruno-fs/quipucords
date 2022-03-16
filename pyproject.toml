@@ -2,14 +2,11 @@
 # Minimum requirements for the build system to execute.
 requires = [
     "setuptools", 
-    "setuptools-git-versioning",
+    "setuptools_scm[toml]",
     "wheel",
 ]  # PEP 508 specifications.
 
-[tool.setuptools-git-versioning]
-enabled = true
-template = "{tag}"
-dev_template = "{tag}.dev{ccount}"
+[tool.setuptools_scm]
 
 [tool.darker]
 revision = "a362b28db064c7a4ee38fe66685ba891f33ee5ba"
