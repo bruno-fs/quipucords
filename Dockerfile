@@ -40,6 +40,9 @@ VOLUME /etc/ansible/roles/
 COPY . .
 RUN pip install -e .
 
+# Collect static files
+RUN make server-static
+
 # Set production environment
 ARG BUILD_COMMIT=master
 ENV QUIPUCORDS_COMMIT=$BUILD_COMMIT
@@ -56,11 +59,6 @@ ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV PYTHONPATH=/app/quipucords
 
-# Collect static files
-RUN make server-static
-RUN ls -lta /var/data
-
-WORKDIR /var/log
 
 EXPOSE 443
 CMD ["/bin/bash", "/deploy/docker_run.sh"]

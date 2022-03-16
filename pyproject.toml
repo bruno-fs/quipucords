@@ -2,8 +2,9 @@
 # Minimum requirements for the build system to execute.
 requires = [
     "setuptools", 
-    "wheel",
     "setuptools-git-versioning",
+    "toml",
+    "wheel",
 ]  # PEP 508 specifications.
 
 [tool.setuptools-git-versioning]
