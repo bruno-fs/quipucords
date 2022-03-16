@@ -1,24 +1,16 @@
 FROM redhat/ubi8
 
-ARG BUILDREQUIRES='python39-devel gcc libpq-devel libffi-devel openssl-devel rust cargo'
-RUN dnf -y install \
-    gettext \
-    glibc-langpack-en \
-    make \
-    openssh-clients \
-    python39 \
-    $BUILDREQUIRES &&\
-    dnf clean all
-RUN python3 -m venv /opt/venv
+RUN dnf -yq install python39 make openssh-clients glibc-langpack-en &&\
+    dnf clean all &&\
+    python3 -m venv /opt/venv
 
 ENV PATH="/opt/venv/bin:${PATH}"
 
-# RUN pip install --upgrade pip
-
 WORKDIR /app
 COPY requirements.txt .
-#RUN python3 -m setuptools
-RUN pip install --require-hashes --no-binary :all: -r requirements.txt
+
+RUN pip install -U pip setutools wheel &&\
+    pip install -r requirements.txt
 
 # Create /etc/ssl/qpc
 RUN mkdir -p /etc/ssl/qpc/
@@ -46,7 +38,7 @@ VOLUME /etc/ansible/roles/
 
 # Copy server code
 COPY . .
-RUN pip install .
+RUN pip install -e .
 
 # Set production environment
 ARG BUILD_COMMIT=master
@@ -64,7 +56,7 @@ ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV PYTHONPATH=/app/quipucords
 
-# Initialize database & Collect static files
+# Collect static files
 RUN make server-static
 RUN ls -lta /var/data
 
