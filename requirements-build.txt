@@ -165,7 +165,6 @@ packaging==21.3 \
     --hash=sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522
     # via
     #   bleach
-    #   setuptools-git-versioning
     #   setuptools-scm
 pbr==5.8.1 \
     --hash=sha256:27108648368782d07bbf1cb468ad2e2eeef29086affd14087a6d04b7de8af4ec \
@@ -213,11 +212,6 @@ semantic-version==2.9.0 \
     --hash=sha256:abf54873553e5e07a6fd4d5f653b781f5ae41297a493666b59dcf214006a12b2 \
     --hash=sha256:db2504ab37902dd2c9876ece53567aa43a5b2a417fbe188097b2048fff46da3d
     # via setuptools-rust
-setuptools-git-versioning==1.8.1 \
-    --hash=sha256:056224c3a4868a96eafd14a454e965cd150d72b1431b5aac319ae8aff5cd99aa \
-    --hash=sha256:63df93a29aea743a14209ff339bf2b4db27684ff9133b8faa0f89e331151aaee \
-    --hash=sha256:831ce09ac9e1cb9a0daeb39849fd32a9c33b11a35df8bb2e02a23a25dd343e92
-    # via -r requirements-build.in
 setuptools-rust==1.1.2 \
     --hash=sha256:72288a34cbb2efc436227f61548a453e91b2b3de1ca5846ab5d6bbcb859595c7 \
     --hash=sha256:a0adb9b503c0ffc4e8fe80b7c617898cefa78049983aaaea7f747e153a3e65d1
@@ -229,13 +223,7 @@ setuptools-scm[toml]==6.4.2 \
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
-    # via
-    #   bleach
-    #   setuptools-git-versioning
-toml==0.10.2 \
-    --hash=sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b \
-    --hash=sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f
-    # via setuptools-git-versioning
+    # via bleach
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
@@ -281,6 +269,5 @@ setuptools==60.9.3 \
     --hash=sha256:e4f30b9f84e5ab3decf945113119649fec09c1fc3507c6ebffec75646c56e62b
     # via
     #   -r requirements-build.in
-    #   setuptools-git-versioning
     #   setuptools-rust
     #   setuptools-scm
