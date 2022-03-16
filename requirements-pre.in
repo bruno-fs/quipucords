@@ -1,2 +1,0 @@
-# "build" requirements
-twine # required to build python-daemon > ansible-runner
