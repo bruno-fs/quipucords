@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # fetches all commits/tags
 
       - name: Set dynamic variables
         # this might seem odd but is the recommended way to set variables
