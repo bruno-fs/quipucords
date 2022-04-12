@@ -1,0 +1,10 @@
+FROM redhat/ubi8-init
+
+RUN dnf -y install openssh-server openssl sudo; \
+    dnf clean all
+
+RUN sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; \
+    systemctl enable sshd; \
+    useradd --user-group --system --create-home -G wheel -p "$(openssl passwd -1 password)" container-user
+
+EXPOSE 22
