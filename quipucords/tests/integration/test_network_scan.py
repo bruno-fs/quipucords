@@ -130,6 +130,8 @@ def fingerprint_fact_map():
 
 
 # pylint: disable=no-self-use
+@pytest.mark.slow
+@pytest.mark.integration
 class TestNetworkScan:
     """Smoke test network scan."""
 
