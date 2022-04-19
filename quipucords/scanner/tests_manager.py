@@ -11,12 +11,11 @@
 """Test the scan manager capabilities."""
 
 from multiprocessing import Process
-from unittest.mock import Mock
-
-from api.models import ScanTask
+from unittest.mock import Mock, patch
 
 from django.test import TestCase
 
+from api.models import ScanJob, ScanTask
 from scanner.manager import Manager
 
 
@@ -40,35 +39,35 @@ class MockTask(Process):
 class ScanManagerTest(TestCase):
     """Tests against the Manager class and functions."""
 
-    scan_manager = None
-
     def setUp(self):
         """Create test case setup."""
+        self.task = MockTask()
         self.scan_manager = Manager()
         self.scan_manager.start()
 
     def tearDown(self):
         """Cleanup test case setup."""
+        if self.task.is_alive():
+            self.task.terminate()
+
         if self.scan_manager.is_alive():
             self.scan_manager.running = False
             self.scan_manager.join()
 
     def test_put(self):
         """Test the put feature of the manager."""
-        task = MockTask()
-        self.scan_manager.put(task)
+        self.scan_manager.put(self.task)
         self.assertEqual(len(self.scan_manager.scan_queue), 1)
 
+    # @patch.object(ScanJob.objects, "filter")
     def test_work(self):
         """Test the work function."""
-        task = MockTask()
         self.assertIsNone(self.scan_manager.current_job_runner)
-        self.scan_manager.put(task)
+        self.scan_manager.put(self.task)
         self.assertIsNone(self.scan_manager.current_job_runner)
         self.scan_manager.work()
 
     def test_kill_missing(self):
         """Test kill on missing id."""
-        task = MockTask()
-        killed = self.scan_manager.kill(task, 'cancel')
+        killed = self.scan_manager.kill(self.task, "cancel")
         self.assertFalse(killed)

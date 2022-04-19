@@ -50,7 +50,7 @@ class Manager(Thread):
 
     def __init__(self):
         """Initialize the manager."""
-        Thread.__init__(self)
+        super().__init__()
         self.scan_queue = []
         self.current_job_runner = None
         self.terminated_job_runner = None
