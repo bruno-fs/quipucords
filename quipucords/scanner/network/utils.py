@@ -10,15 +10,16 @@
 #
 """Scanner used for host connection discovery."""
 
-# ANSIBLE API DEPENDENCY
+from functools import cache
+
+import yaml
 from ansible.parsing.utils.addresses import parse_address
 from ansible.plugins.inventory import detect_range, expand_hostname_range
+from django.conf import settings
 
 from api.models import ScanJob
 from api.vault import decrypt_data_as_unicode
-
-from scanner.network.exceptions import (NetworkCancelException,
-                                        NetworkPauseException)
+from scanner.network.exceptions import NetworkCancelException, NetworkPauseException
 
 # key is stop_type, value is manager_interrupt.value
 STOP_STATES = {'cancel': ScanJob.JOB_TERMINATE_CANCEL,
@@ -102,3 +103,22 @@ def expand_hostpattern(hostpattern):
         hostnames = [pattern]
 
     return hostnames
+
+
+def _yaml_load(path_obj):
+    return yaml.load(path_obj.open(), Loader=yaml.SafeLoader)
+
+
+def collect_all_fact_names():
+    """Collects all fact names set on ansible playbooks"""
+    network_runner_path = settings.BASE_DIR / "scanner/network/runner"
+    for playbook in network_runner_path.rglob("roles/*/tasks/main.yml"):
+        commands = _yaml_load(playbook)
+        for command in commands:
+            yield from command.get("set_fact", {}).keys()
+
+
+@cache
+def results_template():
+    """Results template for fact collection on network scans"""
+    return {fact_name: None for fact_name in sorted(collect_all_fact_names())}
