@@ -76,6 +76,14 @@ def classify_version_string(version_string):
     return None
 
 
+def _get_val_or_empty_list(data_dict, key):
+    return data_dict.get(key, []) or []
+
+
+def _get_val_or_empty_set(data_dict, key):
+    return data_dict.get(key, set()) or set()
+
+
 # pylint: disable=R0912,R0914,R0915
 def detect_jboss_brms(source, facts):
     """Detect if JBoss BRMS is present based on system facts.
@@ -84,14 +92,14 @@ def detect_jboss_brms(source, facts):
     :param facts: facts for a system
     :returns: dictionary defining the product presence
     """
-    manifest_mfs = facts.get(JBOSS_BRMS_MANIFEST_MF, set())
-    kie_in_bc = facts.get(JBOSS_BRMS_KIE_IN_BC, set())
-    locate_kie_api = facts.get(JBOSS_BRMS_LOCATE_KIE_API, set())
-    find_kie_api = facts.get(JBOSS_BRMS_KIE_API_VER, set())
-    find_kie_war = facts.get(JBOSS_BRMS_KIE_WAR_VER, set())
-    find_drools = facts.get(JBOSS_BRMS_DROOLS_CORE_VER, set())
-    subman_consumed = facts.get(SUBMAN_CONSUMED, [])
-    entitlements = facts.get(ENTITLEMENTS, [])
+    manifest_mfs = _get_val_or_empty_set(facts, JBOSS_BRMS_MANIFEST_MF)
+    kie_in_bc = _get_val_or_empty_set(facts, JBOSS_BRMS_KIE_IN_BC)
+    locate_kie_api = _get_val_or_empty_set(facts, JBOSS_BRMS_LOCATE_KIE_API)
+    find_kie_api = _get_val_or_empty_set(facts, JBOSS_BRMS_KIE_API_VER)
+    find_kie_war = _get_val_or_empty_set(facts, JBOSS_BRMS_KIE_WAR_VER)
+    find_drools = _get_val_or_empty_set(facts, JBOSS_BRMS_DROOLS_CORE_VER)
+    subman_consumed = _get_val_or_empty_list(facts, SUBMAN_CONSUMED)
+    entitlements = _get_val_or_empty_list(facts, ENTITLEMENTS)
 
     metadata = {
         'server_id': source['server_id'],

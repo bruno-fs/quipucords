@@ -68,6 +68,10 @@ def get_version(eap_version):
     return new_versions
 
 
+def _get_val_or_empty_list(data_dict, key):
+    return data_dict.get(key, []) or []
+
+
 # pylint: disable=R0914, too-many-statements
 def detect_jboss_fuse(source, facts):
     """Detect if JBoss Fuse is present based on system facts.
@@ -80,22 +84,24 @@ def detect_jboss_fuse(source, facts):
     karaf_home_bin_fuse = facts.get(KARAF_HOME_BIN_FUSE)
     systemctl_files = facts.get(JBOSS_FUSE_SYSTEMCTL_FILES)
     chkconfig = facts.get(JBOSS_FUSE_CHKCONFIG)
-    subman_consumed = facts.get(SUBMAN_CONSUMED, [])
-    entitlements = facts.get(ENTITLEMENTS, [])
+    subman_consumed = _get_val_or_empty_list(facts, SUBMAN_CONSUMED)
+    entitlements = _get_val_or_empty_list(facts, ENTITLEMENTS)
     # Get activemq versions
-    fuse_activemq = facts.get(FUSE_ACTIVEMQ_VERSION, [])
-    eap_activemq = get_version(facts.get(JBOSS_FUSE_ON_EAP_ACTIVEMQ_VER, []))
-    ext_fuse_activemq = facts.get(JBOSS_ACTIVEMQ_VER, [])
+    fuse_activemq = _get_val_or_empty_list(facts, FUSE_ACTIVEMQ_VERSION)
+    eap_activemq = get_version(
+        _get_val_or_empty_list(facts, JBOSS_FUSE_ON_EAP_ACTIVEMQ_VER)
+    )
+    ext_fuse_activemq = _get_val_or_empty_list(facts, JBOSS_ACTIVEMQ_VER)
     activemq_list = fuse_activemq + eap_activemq + ext_fuse_activemq
     # Get camel-core versions
-    fuse_camel = facts.get(FUSE_CAMEL_VERSION, [])
-    eap_camel = get_version(facts.get(JBOSS_FUSE_ON_EAP_CAMEL_VER, []))
-    ext_fuse_camel = facts.get(JBOSS_CAMEL_VER, [])
+    fuse_camel = _get_val_or_empty_list(facts, FUSE_CAMEL_VERSION)
+    eap_camel = get_version(_get_val_or_empty_list(facts, JBOSS_FUSE_ON_EAP_CAMEL_VER))
+    ext_fuse_camel = _get_val_or_empty_list(facts, JBOSS_CAMEL_VER)
     camel_list = fuse_camel + eap_camel + ext_fuse_camel
     # Get cxf-rt versions
-    fuse_cxf = facts.get(FUSE_CXF_VERSION, [])
-    eap_cxf = get_version(facts.get(JBOSS_FUSE_ON_EAP_CXF_VER, []))
-    ext_fuse_cxf = facts.get(JBOSS_CXF_VER, [])
+    fuse_cxf = _get_val_or_empty_list(facts, FUSE_CXF_VERSION)
+    eap_cxf = get_version(_get_val_or_empty_list(facts, JBOSS_FUSE_ON_EAP_CXF_VER))
+    ext_fuse_cxf = _get_val_or_empty_list(facts, JBOSS_CXF_VER)
     cxf_list = fuse_cxf + eap_cxf + ext_fuse_cxf
     fuse_versions = []
 
