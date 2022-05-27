@@ -8,7 +8,6 @@
 # https://www.gnu.org/licenses/gpl-3.0.txt.
 
 """Integration test for network scan."""
-
 import json
 import tarfile
 from datetime import datetime
@@ -29,7 +28,7 @@ from fingerprinter.constants import (
     SOURCES_KEY,
 )
 from tests import constants
-from tests.utils.facts import fact_expander
+from tests.utils.facts import RawFactComparator, fact_expander
 
 logger = getLogger(__name__)
 
@@ -407,7 +406,7 @@ class TestNetworkScan:
                 server_id=mock.ANY,
                 source_name=self.SOURCE_NAME,
                 source_type=self.SOURCE_TYPE,
-                raw_fact_key=raw_fact,
+                raw_fact_key=RawFactComparator(raw_fact),
                 has_sudo=True,
             )
         return metadata
