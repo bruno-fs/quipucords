@@ -257,10 +257,9 @@ def test_sanity_check_raw_fact_matches(
     expected_network_scan_facts, fingerprint_fact_map, unexpected_fingerprints
 ):
     """Ensure raw facts mapped to fingerprint facts match known facts."""
-    raw_facts_for_fingerprints = reduce(
-        or_operator,
-        (fact_expander(fact) for fact in fingerprint_fact_map.values()),
-    )
+    raw_facts_for_fingerprints = set()
+    for fact in fingerprint_fact_map.values():
+        raw_facts_for_fingerprints |= fact_expander(fact)
     assert "registration_time" in raw_facts_for_fingerprints
     # remove "registration_time" as this is a sattelite fact
     raw_facts_for_fingerprints -= {"registration_time"}
