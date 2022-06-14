@@ -13,7 +13,6 @@ import json
 import logging
 import math
 import uuid
-from collections import OrderedDict
 from copy import deepcopy
 from datetime import datetime
 
@@ -88,7 +87,7 @@ FINGERPRINT_GLOBAL_ID_KEY = 'FINGERPRINT_GLOBAL_ID'
 
 # keys are in reverse order of accuracy (last most accurate)
 # (date_key, date_pattern)
-RAW_DATE_KEYS = OrderedDict(
+RAW_DATE_KEYS = dict(
     [
         ("date_yum_history", ["%Y-%m-%d"]),
         ("date_filesystem_create", ["%Y-%m-%d"]),
