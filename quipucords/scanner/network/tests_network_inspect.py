@@ -16,6 +16,7 @@ from multiprocessing import Value
 from unittest.mock import ANY, Mock, patch
 
 import requests_mock
+import pytest
 from ansible_runner.exceptions import AnsibleRunnerException
 from django.test import TestCase
 from django.urls import reverse
@@ -222,6 +223,7 @@ class NetworkInspectScannerTest(TestCase):
             mock_run.assert_called()
             self.assertEqual(scan_task_status[1], ScanTask.FAILED)
 
+    @pytest.mark.slow
     def test_ssh_crash(self):
         """Simulate an ssh crash."""
         scanner = InspectTaskRunner(self.scan_job, self.scan_task)
@@ -233,6 +235,7 @@ class NetworkInspectScannerTest(TestCase):
         )
         self.assertEqual(result, ScanTask.COMPLETED)
 
+    @pytest.mark.slow
     def test_ssh_hang(self):
         """Simulate an ssh hang."""
         scanner = InspectTaskRunner(self.scan_job, self.scan_task)
