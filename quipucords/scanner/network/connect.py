@@ -237,7 +237,7 @@ class ConnectTaskRunner(ScanTaskRunner):
 # pylint: disable=too-many-statements, too-many-branches
 def _connect(
     manager_interrupt,
-    scan_task,
+    scan_task: ScanTask,
     hosts,
     result_store,
     credential,
@@ -262,13 +262,13 @@ def _connect(
     :param base_ssh_executable: ssh executable, or None for
             'ssh'. Will be wrapped with a timeout before being passed
             to Ansible.
-        :param ssh_timeout: string in the format of the 'timeout'
+    :param ssh_timeout: string in the format of the 'timeout'
             command. Timeout for individual tasks.
     :returns: list of connected hosts credential tuples and
             list of host that failed connection
     """
     cred_data = CredentialSerializer(credential).data
-
+    
     ssh_executable = os.path.abspath(
         os.path.join(os.path.dirname(__file__), "../../../bin/timeout_ssh")
     )

@@ -9,6 +9,7 @@
 
 """Common fixtures for integration tests."""
 
+from logging import getLogger
 from urllib.parse import urljoin
 
 import pytest
@@ -21,6 +22,8 @@ from tests.utils.container_wrappers import (
     ScanTargetContainer,
 )
 from tests.utils.http import BaseUrlClient, QPCAuth
+
+logger = getLogger(__name__)
 
 # pylint: disable=no-value-for-parameter
 postgres_container = container(
@@ -96,7 +99,9 @@ def apiclient(qpc_server_container: QuipucordsContainer):
         username=constants.QPC_SERVER_USERNAME,
         password=constants.QPC_SERVER_PASSWORD,
     )
-    return client
+    yield client
+    # log container logs. They wont appear if 
+    logger.info(qpc_server_container.logs())
 
 
 @pytest.fixture(scope="class")

@@ -11,6 +11,8 @@
 """Vault is used to read and write data securely using the Ansible vault."""
 
 import tempfile
+from logging import getLogger
+from pathlib import Path
 
 import yaml
 
@@ -19,6 +21,8 @@ from ansible.module_utils._text import to_bytes
 from ansible.parsing.vault import VaultLib, VaultSecret
 from ansible.parsing.yaml.dumper import AnsibleDumper
 from django.conf import settings
+
+logger = getLogger(__name__)
 
 
 def represent_none(self, _):
@@ -127,5 +131,6 @@ class Vault:
         """
         with tempfile.NamedTemporaryFile(delete=False, suffix=".yaml") as data_temp:
             self.dump_as_yaml(obj, data_temp)
+            # logger.info(data_temp.seek(0).read())
         data_temp.close()
         return data_temp.name

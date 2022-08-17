@@ -211,23 +211,23 @@ class InspectTaskRunner(ScanTaskRunner):
 
         extra_vars["QPC_FEATURE_FLAGS"] = settings.QPC_FEATURE_FLAGS.as_dict()
 
-        ssh_executable = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "../../../bin/timeout_ssh")
-        )
+        # ssh_executable = os.path.abspath(
+        #     os.path.join(os.path.dirname(__file__), "../../../bin/timeout_ssh")
+        # )
 
-        base_ssh_executable = base_ssh_executable or "ssh"
-        ssh_timeout = ssh_timeout or settings.QPC_SSH_INSPECT_TIMEOUT
+        # base_ssh_executable = base_ssh_executable or "ssh"
+        # ssh_timeout = ssh_timeout or settings.QPC_SSH_INSPECT_TIMEOUT
         # pylint: disable=line-too-long
         # the ssh arg is required for become-pass because
         # ansible checks for an exact string match of ssh
         # anywhere in the command array
         # See https://github.com/ansible/ansible/blob/stable-2.3/lib/ansible/plugins/connection/ssh.py#L490-L500 # noqa
         # timeout_ssh will remove the ssh argument before running the command
-        ssh_args = [
-            "--executable=" + base_ssh_executable,
-            "--timeout=" + ssh_timeout,
-            "ssh",
-        ]
+        # ssh_args = [
+        # "--executable=" + base_ssh_executable,
+        # "--timeout=" + ssh_timeout,
+        # "ssh",
+        # ]
 
         group_names, inventory = construct_inventory(
             hosts=connected,

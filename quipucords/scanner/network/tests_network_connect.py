@@ -28,7 +28,7 @@ from scanner.network.connect import (
     _construct_connect_inventory,
 )
 from scanner.network.exceptions import NetworkCancelException, NetworkPauseException
-from scanner.network.utils import _construct_vars
+from scanner.network.utils import _construct_vars, construct_inventory
 from scanner.test_util import create_scan_job
 
 
@@ -188,14 +188,14 @@ class NetworkConnectTaskRunnerTest(TestCase):
         path = "/path/to/executable.py"
         ssh_timeout = "0.1s"
         ssh_args = ["--executable=" + path, "--timeout=" + ssh_timeout, "ssh"]
-        _, inventory_dict = _construct_connect_inventory(
+        _, inventory_dict = construct_inventory(
             hosts,
             cred,
             connection_port,
             1,
             exclude_hosts,
             ssh_executable=path,
-            ssh_args=ssh_args,
+            ssh_timeout=ssh_args,
         )
         # pylint: disable=line-too-long
         expected = {
