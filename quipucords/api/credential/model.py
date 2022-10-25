@@ -22,6 +22,13 @@ from api.vault import encrypt_data_as_unicode
 class Credential(models.Model):
     """The credential for connecting to systems."""
 
+    class AuthMethods(models.TextChoices):
+        """Authentication Method Enum."""
+
+        SSH_KEY = "ssh_key"
+        USERNAME_PASSWORD = "username_and_password"
+        AUTH_TOKEN = "auth_token"
+
     NETWORK_CRED_TYPE = "network"
     VCENTER_CRED_TYPE = "vcenter"
     SATELLITE_CRED_TYPE = "satellite"
@@ -64,6 +71,25 @@ class Credential(models.Model):
     )
     become_user = models.CharField(max_length=64, null=True)
     become_password = models.CharField(max_length=1024, null=True)
+
+    @property
+    def auth_method(self):
+        """
+        Authentication method.
+
+        Assumes Credential instances have the appropriate fields filled.
+        If a cred instance has ssh_keyfile and auth_token filled, it'd be wrongly
+        considered it has a "SSH_KEY" auth_method.
+
+        (CredentialSerializer is responsible to make sure credentials are 
+        created/updated correctly).
+        """
+        if self.ssh_keyfile:
+            return self.AuthMethods.SSH_KEY
+        if self.auth_token:
+            return self.AuthMethods.AUTH_TOKEN
+        if self.username and self.password:
+            return self.AuthMethods.USERNAME_PASSWORD
 
     @staticmethod
     def is_encrypted(field):

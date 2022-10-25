@@ -13,7 +13,7 @@
 import os
 
 from django.utils.translation import gettext as _
-from rest_framework.serializers import CharField, ValidationError
+from rest_framework.serializers import CharField, ValidationError, ChoiceField
 
 from api import messages
 from api.common.serializer import NotEmptySerializer, ValidStringChoiceField
@@ -69,6 +69,7 @@ class CredentialSerializer(NotEmptySerializer):
         allow_null=True,
         style={"input_type": "password"},
     )
+    auth_method = ChoiceField(choices=Credential.AuthMethods)
 
     class Meta:
         """Metadata for the serializer."""
@@ -115,6 +116,9 @@ class CredentialSerializer(NotEmptySerializer):
             validated_data["become_user"] = Credential.BECOME_USER_DEFAULT
 
         return super().create(validated_data)
+
+    # def _validate_auth_method(self, attrs: dict):
+    #     instance.auth_method
 
     def update(self, instance, validated_data):
         """Update a host credential."""
