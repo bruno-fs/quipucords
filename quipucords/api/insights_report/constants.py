@@ -11,7 +11,6 @@
 
 CANONICAL_FACTS = (
     "bios_uuid",
-    "fqdn",
     "insights_id",
     "ip_addresses",
     "mac_addresses",
@@ -19,4 +18,8 @@ CANONICAL_FACTS = (
     "provider_type",
     "satellite_id",
     "subscription_manager_id",
+    # the next two were added in yuptoo
+    # https://github.com/RedHatInsights/yuptoo/blob/591add7518671bfaef64cb2b2afefbf908885d61/yuptoo/processor/utils.py#L27
+    "etc_machine_id",
+    "vm_uuid",
 )
