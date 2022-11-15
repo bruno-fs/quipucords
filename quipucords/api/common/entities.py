@@ -67,6 +67,29 @@ class HostEntity:
             return value
         return None
 
+    @property
+    def rh_products_installed(self):
+        """Return the installed products on the system.
+
+        :param redhat_products: <dict> of products.
+        :returns: a list of the installed products.
+        """
+        products = []
+        name_to_product = {
+            "JBoss EAP": "EAP",
+            "JBoss Fuse": "FUSE",
+            "JBoss BRMS": "DCSM",
+            "JBoss Web Server": "JWS",
+        }
+        if self._fingerprints.is_redhat:
+            products.append("RHEL")
+        for product in self._fingerprints.products.all():
+            if product.presence == "present":
+                name = name_to_product.get(product.name)
+                if name:
+                    products.append(name)
+        return products
+
 
 @dataclass
 class ReportEntity:
