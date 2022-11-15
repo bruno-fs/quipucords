@@ -19,6 +19,7 @@ from rest_framework.serializers import (
     ListSerializer,
     ModelSerializer,
     ValidationError,
+    empty,
 )
 
 from api import messages
@@ -108,10 +109,77 @@ class CustomJSONField(Field):
 
 
 class ForcedListSerializer(ListSerializer):  # pylint: disable=abstract-method
-    """Serializer that forces data output as list."""
+    """
+    ListSerializer that forces data output as list.
 
+    Should be used as a Serializer.Meta option like the following
+
+    class SomeSerializer(Serializer):
+        class Meta:
+            list_serializer_class = ForcedListSerializer
+
+    If you want to use this class, consider adopting AlwaysManyMixin.
+    """
+
+    def __init__(self, *args, **kwargs):
+        if kwargs.pop("data", None):
+            raise Exception()
+        super().__init__(*args, **kwargs)
+    
     def to_representation(self, data):
         """Force instance as list."""
         if not isinstance(data, list):
             data = [data]
+        # raise Exception(self.child)
         return super().to_representation(data)
+
+    @classmethod
+    def set_serializer_meta(cls, serializer_class):
+        """Force serializer_class to use this as list_serializer_class."""
+        meta = getattr(serializer_class, "Meta", None)
+        list_serializer = getattr(meta, "list_serializer_class", None)
+        if not isinstance(list_serializer, cls):
+
+            class _Meta:
+                list_serializer_class = cls
+
+            if meta is not None:
+                # combine Meta classes
+                class _Meta(_Meta, meta):
+                    ...
+
+            serializer_class.Meta = _Meta
+
+
+class AlwaysManyMixin:
+    """
+    Mixin that forces Serializers to always represent data as lists.
+
+    This is useful to force representation of a data that might not exist
+    as a list, but should always be represented as a such.
+    """
+
+    def __init__(self, instance=None, **kwargs):
+        """Initialize serializer."""
+        if instance is not None and not isinstance(instance, (list, tuple)):
+            instance = [instance]
+        if kwargs.pop("data", None):
+            raise Exception()
+        super().__init__(instance, **kwargs)
+
+    def __new__(cls, *args, **kwargs):
+        """Override default list_serializer_class with ForcedListSerializer."""
+        kwargs.pop("many", None)
+        if kwargs.pop("data", None):
+            raise Exception()
+        ForcedListSerializer.set_serializer_meta(cls.__class__)
+        counter = getattr(cls, "__counter", None)
+        has_instance = (args or kwargs.get("instance"))
+        if not getattr(cls, "_many_init", None):
+            setattr(cls, "_many_init", True)
+            setattr(cls, "__counter", cls._creation_counter)
+            return cls.many_init(*args, **kwargs)
+        elif has_instance and counter != cls._creation_counter:
+            setattr(cls, "__counter", cls._creation_counter)
+            return cls.many_init(*args, **kwargs)
+        return super().__new__(cls, *args, **kwargs)
