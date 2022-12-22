@@ -8,6 +8,7 @@
 # https://www.gnu.org/licenses/gpl-3.0.txt.
 #
 """Abstraction for retrieving data from OpenShift/Kubernetes API."""
+
 from pathlib import Path
 
 import httpretty
@@ -56,7 +57,7 @@ def patch_ocp_api(path, **kwargs):
 
 
 @pytest.fixture
-def ocp_client():
+def ocp_client(tmp_path):
     """OCP client for testing."""
     return OpenShiftApi.from_auth_token(
         auth_token=OPENSHIFT_TOKEN,
@@ -64,6 +65,9 @@ def ocp_client():
         port=OPENSHIFT_PORT,
         protocol=OPENSHIFT_PROTOCOL,
     )
+    client._discoverer_cache_file = tmp_path / "ocp-client-discovery.json"
+    return client
+
 
 
 def test_from_auth_token(mocker):

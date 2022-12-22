@@ -73,10 +73,12 @@ class OpenShiftApi:
         """Initialize OpenShiftApi."""
         configuration.verify_ssl = ssl_verify
         self._api_client = ApiClient(configuration=configuration)
+        # discoverer cache is used to cache resources for dynamic client
+        self._discoverer_cache_file = None
 
     @cached_property
     def _dynamic_client(self):
-        return DynamicClient(self._api_client)
+        return DynamicClient(self._api_client, cache_file=self._discoverer_cache_file)
 
     @classmethod
     def from_auth_token(
