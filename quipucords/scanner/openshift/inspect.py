@@ -12,7 +12,7 @@ from scanner.openshift.runner import OpenShiftTaskRunner
 class InspectTaskRunner(OpenShiftTaskRunner):
     """OpenShift inspect task runner."""
 
-    SUCCESS_MESSAGE = "Inspected OpenShift host succesfully."
+    SUCCESS_MESSAGE = "Inspected OpenShift host successfully."
     PARTIAL_SUCCESS_MESSAGE = (
         "Inspected some data from OpenShift host. Check details report for errors."
     )
@@ -61,6 +61,7 @@ class InspectTaskRunner(OpenShiftTaskRunner):
         fact2method = (
             ("projects", ocp_client.retrieve_projects),
             ("workloads", ocp_client.retrieve_workloads),
+            ("operators", ocp_client.retrieve_operators),
         )
         extra_facts = {}
         for fact_name, api_method in fact2method:

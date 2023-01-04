@@ -100,8 +100,6 @@ interactions:
       - application/json
       Date:
       - Tue, 24 Jan 2023 22:45:19 GMT
-      Transfer-Encoding:
-      - chunked
       X-Kubernetes-Pf-Flowschema-Uid:
       - dc5f54d8-61c7-4078-be42-b2ae14cafe79
       X-Kubernetes-Pf-Prioritylevel-Uid:
@@ -136,8 +134,6 @@ interactions:
       - application/json
       Date:
       - Tue, 24 Jan 2023 22:45:20 GMT
-      Transfer-Encoding:
-      - chunked
       X-Kubernetes-Pf-Flowschema-Uid:
       - dc5f54d8-61c7-4078-be42-b2ae14cafe79
       X-Kubernetes-Pf-Prioritylevel-Uid:
@@ -172,8 +168,6 @@ interactions:
       - application/json
       Date:
       - Tue, 24 Jan 2023 22:45:20 GMT
-      Transfer-Encoding:
-      - chunked
       X-Kubernetes-Pf-Flowschema-Uid:
       - dc5f54d8-61c7-4078-be42-b2ae14cafe79
       X-Kubernetes-Pf-Prioritylevel-Uid:
@@ -244,8 +238,6 @@ interactions:
       - application/json
       Date:
       - Tue, 24 Jan 2023 22:45:22 GMT
-      Transfer-Encoding:
-      - chunked
       X-Kubernetes-Pf-Flowschema-Uid:
       - dc5f54d8-61c7-4078-be42-b2ae14cafe79
       X-Kubernetes-Pf-Prioritylevel-Uid:
@@ -1316,8 +1308,6 @@ interactions:
       - application/json
       Date:
       - Tue, 24 Jan 2023 22:45:38 GMT
-      Transfer-Encoding:
-      - chunked
       X-Kubernetes-Pf-Flowschema-Uid:
       - dc5f54d8-61c7-4078-be42-b2ae14cafe79
       X-Kubernetes-Pf-Prioritylevel-Uid:
@@ -1424,8 +1414,6 @@ interactions:
       - application/json
       Date:
       - Tue, 24 Jan 2023 22:45:40 GMT
-      Transfer-Encoding:
-      - chunked
       X-Kubernetes-Pf-Flowschema-Uid:
       - dc5f54d8-61c7-4078-be42-b2ae14cafe79
       X-Kubernetes-Pf-Prioritylevel-Uid:
@@ -1784,8 +1772,6 @@ interactions:
       - application/json
       Date:
       - Tue, 24 Jan 2023 22:45:46 GMT
-      Transfer-Encoding:
-      - chunked
       X-Kubernetes-Pf-Flowschema-Uid:
       - dc5f54d8-61c7-4078-be42-b2ae14cafe79
       X-Kubernetes-Pf-Prioritylevel-Uid:
@@ -2216,12 +2202,48 @@ interactions:
       - application/json
       Date:
       - Tue, 24 Jan 2023 22:45:54 GMT
-      Transfer-Encoding:
-      - chunked
       X-Kubernetes-Pf-Flowschema-Uid:
       - dc5f54d8-61c7-4078-be42-b2ae14cafe79
       X-Kubernetes-Pf-Prioritylevel-Uid:
       - ee8439fa-db58-4921-a40d-640133815212
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      User-Agent:
+      - OpenAPI-Generator/26.1.0/python
+      authorization:
+      - <AUTH_TOKEN>
+    method: GET
+    uri: https://fake.ocp.host:9872/apis/operators.coreos.com/v1alpha1
+  response:
+    body:
+      string: '{"kind":"APIResourceList","apiVersion":"v1","groupVersion":"operators.coreos.com/v1alpha1","resources":[{"name":"clusterserviceversions","singularName":"clusterserviceversion","namespaced":true,"kind":"ClusterServiceVersion","verbs":["delete","deletecollection","get","list","patch","create","update","watch"],"shortNames":["csv","csvs"],"categories":["olm"],"storageVersionHash":"bafXBXMPCeY="},{"name":"clusterserviceversions/status","singularName":"","namespaced":true,"kind":"ClusterServiceVersion","verbs":["get","patch","update"]},{"name":"catalogsources","singularName":"catalogsource","namespaced":true,"kind":"CatalogSource","verbs":["delete","deletecollection","get","list","patch","create","update","watch"],"shortNames":["catsrc"],"categories":["olm"],"storageVersionHash":"58Nwkl8WW7w="},{"name":"catalogsources/status","singularName":"","namespaced":true,"kind":"CatalogSource","verbs":["get","patch","update"]},{"name":"installplans","singularName":"installplan","namespaced":true,"kind":"InstallPlan","verbs":["delete","deletecollection","get","list","patch","create","update","watch"],"shortNames":["ip"],"categories":["olm"],"storageVersionHash":"6gw8IwttiW4="},{"name":"installplans/status","singularName":"","namespaced":true,"kind":"InstallPlan","verbs":["get","patch","update"]},{"name":"subscriptions","singularName":"subscription","namespaced":true,"kind":"Subscription","verbs":["delete","deletecollection","get","list","patch","create","update","watch"],"shortNames":["sub","subs"],"categories":["olm"],"storageVersionHash":"cJUAl67Y7C4="},{"name":"subscriptions/status","singularName":"","namespaced":true,"kind":"Subscription","verbs":["get","patch","update"]}]}
+
+        '
+    headers:
+      Audit-Id:
+      - c0acacae-26f7-47de-ab8e-2a186d0e7aec
+      Cache-Control:
+      - no-cache, private
+      Content-Length:
+      - '1691'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 25 Apr 2023 18:17:16 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Kubernetes-Pf-Flowschema-Uid:
+      - 89c69edd-2e7d-4995-8a3a-e93073b22cdf
+      X-Kubernetes-Pf-Prioritylevel-Uid:
+      - 38050c46-8caa-43eb-93cf-da9904483a29
     status:
       code: 200
       message: OK
