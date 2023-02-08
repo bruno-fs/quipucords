@@ -1588,7 +1588,11 @@ class FingerprintTaskRunner(ScanTaskRunner):
             PRODUCTS_KEY: [],
         }
         self._add_fact_to_fingerprint(
-            source, "ansible_controller_host", fact, "name", fingerprint,
+            source,
+            "ansible_controller_host",
+            fact,
+            "name",
+            fingerprint,
         )
         return fingerprint
 
