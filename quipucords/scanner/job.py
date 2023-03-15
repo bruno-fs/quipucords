@@ -1,4 +1,6 @@
 """ScanJobRunner runs a group of scan tasks."""
+
+import importlib
 import logging
 from multiprocessing import Process, Value
 
@@ -10,20 +12,11 @@ from api.details_report.util import (
     create_details_report,
     validate_details_report_json,
 )
-from api.models import ScanJob, ScanTask, Source
+from api.models import ScanJob, ScanTask
 from fingerprinter.task import FingerprintTaskRunner
-from scanner import network, openshift, satellite, vcenter
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
-
-
-MODULE_PER_SOURCE_TYPE = {
-    Source.NETWORK_SOURCE_TYPE: network,
-    Source.OPENSHIFT_SOURCE_TYPE: openshift,
-    Source.SATELLITE_SOURCE_TYPE: satellite,
-    Source.VCENTER_SOURCE_TYPE: vcenter,
-}
 
 
 class ScanJobRunner(Process):
@@ -240,8 +233,8 @@ class ScanJobRunner(Process):
         """Get the appropriate module for scan task based on its source type."""
         source_type = scan_task.source.source_type
         try:
-            return MODULE_PER_SOURCE_TYPE[source_type]
-        except KeyError as error:
+            return importlib.import_module(f"scanner.{source_type}")
+        except ModuleNotFoundError as error:
             raise NotImplementedError(
                 f"Unsupported source type: {source_type}"
             ) from error
