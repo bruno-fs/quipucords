@@ -16,7 +16,7 @@ class Credential(models.Model):
     VCENTER_CRED_TYPE = "vcenter"
     SATELLITE_CRED_TYPE = "satellite"
     OPENSHIFT_CRED_TYPE = "openshift"
-    ANSIBLE_CONTROLLER_SOURCE_TYPE = "ansible-controller"
+    ANSIBLE_CONTROLLER_SOURCE_TYPE = "ansible"
 
     CRED_TYPE_CHOICES = (
         (NETWORK_CRED_TYPE, NETWORK_CRED_TYPE),

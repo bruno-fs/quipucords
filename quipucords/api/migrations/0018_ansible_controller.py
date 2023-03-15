@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("api", "0015_remove_unused_fingerprints"),
+        ("api", "0017_convert_to_jsonfield"),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                     ("vcenter", "vcenter"),
                     ("satellite", "satellite"),
                     ("openshift", "openshift"),
-                    ("ansible-controller", "ansible-controller"),
+                    ("ansible", "ansible"),
                 ],
                 max_length=18,
             ),
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                     ("vcenter", "vcenter"),
                     ("satellite", "satellite"),
                     ("openshift", "openshift"),
-                    ("ansible-controller", "ansible-controller"),
+                    ("ansible", "ansible"),
                 ],
                 max_length=18,
             ),

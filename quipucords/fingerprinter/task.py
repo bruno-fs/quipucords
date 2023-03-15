@@ -446,7 +446,7 @@ class FingerprintTaskRunner(ScanTaskRunner):
         fingerprint_map[COMBINED_KEY].extend(fingerprint_map.pop(OPENSHIFT_KEY))
         fingerprint_map[COMBINED_KEY].extend(fingerprint_map.pop(ANSIBLE_KEY))
         self._log_message_with_count(
-            "COMBINE with OPENSHIFT+ANSIBLE-CONTROLLER fingerprints",
+            "COMBINE with OPENSHIFT+ANSIBLE fingerprints",
             fingerprint_map,
             total_only=True,
         )

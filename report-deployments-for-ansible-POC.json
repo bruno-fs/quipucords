@@ -10,7 +10,7 @@
                 "name": {
                     "server_id": "5d9b6899-940c-4171-8295-2eb56d0bbe4a",
                     "source_name": "ansible",
-                    "source_type": "ansible-controller",
+                    "source_type": "ansible",
                     "raw_fact_key": "ansible_controller_host",
                     "has_sudo": false
                 }
@@ -21,7 +21,7 @@
             "sources": [
                 {
                     "server_id": "5d9b6899-940c-4171-8295-2eb56d0bbe4a",
-                    "source_type": "ansible-controller",
+                    "source_type": "ansible",
                     "source_name": "ansible"
                 }
             ],

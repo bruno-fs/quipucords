@@ -6,7 +6,7 @@
             "server_id": "5d9b6899-940c-4171-8295-2eb56d0bbe4a",
             "report_version": "1.1.5.b7189bb7063ef92e4d35580f330dc824b237a151",
             "source_name": "ansible",
-            "source_type": "ansible-controller",
+            "source_type": "ansible",
             "facts": [
                 {
                     "ansible_controller_host": "54.233.150.173",

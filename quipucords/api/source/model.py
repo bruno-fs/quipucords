@@ -55,7 +55,7 @@ class Source(models.Model):
     VCENTER_SOURCE_TYPE = "vcenter"
     SATELLITE_SOURCE_TYPE = "satellite"
     OPENSHIFT_SOURCE_TYPE = "openshift"
-    ANSIBLE_CONTROLLER_SOURCE_TYPE = "ansible-controller"
+    ANSIBLE_CONTROLLER_SOURCE_TYPE = "ansible"
     SOURCE_TYPE_CHOICES = (
         (NETWORK_SOURCE_TYPE, NETWORK_SOURCE_TYPE),
         (VCENTER_SOURCE_TYPE, VCENTER_SOURCE_TYPE),
