@@ -9,7 +9,7 @@ import pytest
 from scanner.openshift.api import OpenShiftApi
 from scanner.openshift.entities import (
     ClusterOperator,
-    ManagedOperator,
+    LifecycleOperator,
     NodeResources,
     OCPCluster,
     OCPError,
@@ -172,7 +172,7 @@ def test_retrieve_operators(ocp_client: OpenShiftApi):
     operators = ocp_client.retrieve_operators()
     assert isinstance(operators, OCPOperators)
     assert isinstance(operators.cluster_operators[0], ClusterOperator)
-    assert isinstance(operators.olm_operators[0], ManagedOperator)
+    assert isinstance(operators.olm_operators[0], LifecycleOperator)
     assert not operators.errors
 
 

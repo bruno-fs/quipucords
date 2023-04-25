@@ -1,5 +1,7 @@
 """Abstraction for retrieving data from OpenShift/Kubernetes API."""
 
+from __future__ import annotations
+
 from functools import cached_property, wraps
 from logging import getLogger
 from typing import List
@@ -11,11 +13,12 @@ from openshift.helper.userpassauth import OCPLoginConfiguration
 from urllib3.exceptions import MaxRetryError
 
 from scanner.openshift.entities import (
+    ClusterOperator,
+    LifecycleOperator,
     NodeResources,
     OCPCluster,
     OCPError,
     OCPNode,
-    OCPOperators,
     OCPPod,
     OCPProject,
     OCPWorkload,
@@ -183,28 +186,14 @@ class OpenShiftApi:
             workload_list.append(OCPWorkload(**data))
         return workload_list
 
-    def retrieve_operators(self, **kwargs) -> OCPOperators:
-        """Retrieve OCP Operators."""
-        _errors = {}
-        try:
-            _cluster_operators = self._list_cluster_operators()
-
-        except OCPError as err:
-            _errors["cluster_operators"] = err
-            _cluster_operators = []
-
-        try:
-            _olm_operators = self._list_subscriptions()
-
-        except OCPError as err:
-            _errors["olm_operators"] = err
-            _olm_operators = []
-
-        return OCPOperators(
-            cluster_operators=_cluster_operators,
-            olm_operators=_olm_operators,
-            errors=_errors,
-        )
+    def retrieve_operators(self, **kwargs) -> List[ClusterOperator | LifecycleOperator]:
+        return [
+            ClusterOperator.from_raw_object(operator)
+            for operator in self._list_cluster_operators(**kwargs).items
+        ] + [
+            LifecycleOperator.from_raw_object(operator)
+            for operator in self._list_subscriptions(**kwargs).items
+        ]
 
     @cached_property
     def _core_api(self):

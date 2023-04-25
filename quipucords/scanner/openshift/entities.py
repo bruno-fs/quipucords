@@ -253,7 +253,7 @@ class NodeResources(OCPBaseEntity):
         return digits, power_name, ends_with_i
 
 
-class ClusterOperator(BaseModel):
+class ClusterOperator(OCPBaseEntity):
     """OCP Cluster Operator."""
 
     _kind = "cluster-operator"
@@ -280,7 +280,7 @@ class ClusterOperator(BaseModel):
         )
 
 
-class ManagedOperator(ClusterOperator):
+class LifecycleOperator(ClusterOperator):
     """Operator managed by Operator Lifecycle Manager (OLM)."""
 
     _kind = "olm-operator"
@@ -294,7 +294,7 @@ class ManagedOperator(ClusterOperator):
         """Instantiate OLM operator using its equivalent api object."""
         installed_version = raw_object.status.installedCSV
         package, version = installed_version.split(".", 1)
-        return ManagedOperator(
+        return LifecycleOperator(
             name=raw_object.metadata.name,
             created_at=raw_object.metadata.creationTimestamp,
             updated_at=raw_object.status.lastUpdated,
@@ -304,31 +304,6 @@ class ManagedOperator(ClusterOperator):
             package=package,
             version=version,
         )
-
-
-class OCPOperators(OCPBaseEntity):
-    """OCP Operators."""
-
-    _kind = "operators"
-    cluster_operators: List[ClusterOperator] = Field(default_factory=list)
-    olm_operators: List[ManagedOperator] = Field(default_factory=list)
-    errors: Dict[str, OCPError] = Field(default_factory=dict)
-
-    @validator("cluster_operators", pre=True)
-    def _init_cluster_operators(cls, values):
-        return cls._parse_resource_instance(values, ClusterOperator.from_raw_object)
-
-    @validator("olm_operators", pre=True)
-    def _init_olm_operators(cls, values):
-        return cls._parse_resource_instance(values, ManagedOperator.from_raw_object)
-
-    @classmethod
-    def _parse_resource_instance(cls, values, parser):
-
-        if isinstance(values, (K8SResourceInstance, OCPResourceInstance)):
-            return [parser(res) for res in values.items]
-        return values
-
 
 # update nested model references - this should always be the last thing to run
 _update_model_refs()
