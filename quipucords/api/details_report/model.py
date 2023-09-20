@@ -6,6 +6,7 @@ from django.db import models
 
 from api.common.common_report import REPORT_TYPE_CHOICES, REPORT_TYPE_DETAILS
 from api.inspectresult.model import RawFactEncoder
+from api.reports.model import Report
 
 
 class DetailsReport(models.Model):
@@ -17,8 +18,8 @@ class DetailsReport(models.Model):
     report_version = models.CharField(max_length=64, null=False)
     report_platform_id = models.UUIDField(default=uuid.uuid4, editable=False)
     sources = models.JSONField(null=False, default=list, encoder=RawFactEncoder)
-    report_id = models.IntegerField(null=True)
     deployment_report = models.OneToOneField(
         "DeploymentsReport", models.CASCADE, related_name="details_report", null=True
     )
+    report = models.OneToOneField(Report, null=True, on_delete=models.CASCADE)
     cached_csv = models.TextField(null=True)

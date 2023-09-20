@@ -5,6 +5,7 @@ import uuid
 from django.db import models
 
 from api.common.common_report import REPORT_TYPE_CHOICES, REPORT_TYPE_DEPLOYMENT
+from api.reports.model import Report
 from fingerprinter.constants import (
     ENTITLEMENTS_KEY,
     META_DATA_KEY,
@@ -34,9 +35,10 @@ class DeploymentsReport(models.Model):
     status = models.CharField(
         max_length=16, choices=STATUS_CHOICES, default=STATUS_PENDING
     )
-    report_id = models.IntegerField(null=True)
+    fake_report_id = models.IntegerField(null=True)
     cached_fingerprints = models.JSONField(null=True)
     cached_csv = models.TextField(null=True)
+    report = models.OneToOneField(Report, null=True, on_delete=models.CASCADE)
 
 
 class SystemFingerprint(models.Model):

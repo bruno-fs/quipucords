@@ -31,3 +31,4 @@ from api.scanjob.model import ScanJob
 from api.scantask.model import ScanTask
 from api.source.model import Source, SourceOptions
 from api.status.model import ServerInformation
+from api.reports.model import Report

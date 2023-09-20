@@ -13,6 +13,7 @@ from api import messages
 from api.connresult.model import JobConnectionResult, TaskConnectionResult
 from api.details_report.model import DetailsReport
 from api.inspectresult.model import JobInspectionResult, TaskInspectionResult
+from api.reports.model import Report
 from api.scan.model import (
     DisabledOptionalProductsOptions,
     ExtendedProductSearchOptions,
@@ -48,7 +49,6 @@ class ScanJob(models.Model):
         null=True, default=_(messages.SJ_STATUS_MSG_CREATED)
     )
     options = models.OneToOneField(ScanOptions, null=True, on_delete=models.CASCADE)
-    report_id = models.IntegerField(null=True)
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
 
@@ -69,6 +69,7 @@ class ScanJob(models.Model):
     details_report = models.OneToOneField(
         DetailsReport, null=True, on_delete=models.CASCADE
     )
+    report = models.OneToOneField(Report, null=True, on_delete=models.CASCADE)
 
     class Meta:
         """Metadata for model."""
@@ -201,7 +202,6 @@ class ScanJob(models.Model):
             self.details_report.refresh_from_db()
 
             if self.details_report.deployment_report:
-
                 system_fingerprint_count = (
                     self.details_report.deployment_report.system_fingerprints.count()
                 )
