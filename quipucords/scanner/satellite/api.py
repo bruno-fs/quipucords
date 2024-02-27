@@ -91,9 +91,9 @@ class SatelliteInterface(ABC):
             name=name,
             source=self.source,
             status=status,
-            task_inspection_result=self.inspect_scan_task.inspection_result,
         )
         sys_result.save()
+        sys_result.scanjobs.add(self.scan_job)
 
         if status == SystemInspectionResult.SUCCESS:
             for key, val in facts.items():

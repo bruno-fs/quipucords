@@ -177,9 +177,9 @@ class InspectTaskRunner(AnsibleTaskRunner):
             name=self.system_name,
             status=inspection_status,
             source=self.scan_task.source,
-            task_inspection_result=self.scan_task.inspection_result,
         )
         sys_result.save()
+        sys_result.scanjobs.add(self.scan_job)
         raw_facts = self._facts_dict_as_raw_facts(sys_result, **facts_dict)
         RawFact.objects.bulk_create(raw_facts)
         return sys_result

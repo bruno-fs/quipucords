@@ -16,10 +16,8 @@ from api.deployments_report.model import (
 )
 from api.reports.model import Report
 from api.inspectresult.model import (
-    JobInspectionResult,
     RawFact,
     SystemInspectionResult,
-    TaskInspectionResult,
 )
 from api.scan.model import (
     DisabledOptionalProductsOptions,

@@ -121,18 +121,18 @@ class InspectTaskRunner(OpenShiftTaskRunner):
 
     def _persist_cluster_facts(self, cluster, other_facts):
         inspection_status = self._infer_inspection_status(cluster)
-        system_result = SystemInspectionResult(
+        sys_result = SystemInspectionResult(
             name=cluster.name,
             status=inspection_status,
             source=self.scan_task.source,
-            task_inspection_result=self.scan_task.inspection_result,
         )
-        system_result.save()
-        raw_fact = self._entity_as_raw_fact(cluster, system_result)
+        sys_result.save()
+        sys_result.scanjobs.add(self.scan_job)
+        raw_fact = self._entity_as_raw_fact(cluster, sys_result)
         raw_fact.save()
-        other_raw_facts = self._entities_as_raw_facts(system_result, other_facts)
+        other_raw_facts = self._entities_as_raw_facts(sys_result, other_facts)
         RawFact.objects.bulk_create(other_raw_facts)
-        return system_result
+        return sys_result
 
     def _persist_facts(self, node: OCPNode) -> SystemInspectionResult:
         inspection_status = self._infer_inspection_status(node)
@@ -140,9 +140,9 @@ class InspectTaskRunner(OpenShiftTaskRunner):
             name=node.name,
             status=inspection_status,
             source=self.scan_task.source,
-            task_inspection_result=self.scan_task.inspection_result,
         )
         sys_result.save()
+        sys_result.scanjobs.add(self.scan_job)
         raw_fact = self._entity_as_raw_fact(node, sys_result)
         raw_fact.save()
         return sys_result

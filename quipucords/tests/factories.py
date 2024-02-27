@@ -151,15 +151,6 @@ class JobConnectionResultFactory(DjangoModelFactory):
         model = models.JobConnectionResult
 
 
-class JobInspectionResultFactory(DjangoModelFactory):
-    """Factory for JobInspectionResult model."""
-
-    class Meta:
-        """Factory options."""
-
-        model = models.JobInspectionResult
-
-
 class ScanJobFactory(DjangoModelFactory):
     """Factory for ScanJob."""
 
@@ -168,7 +159,6 @@ class ScanJobFactory(DjangoModelFactory):
 
     report = factory.SubFactory(ReportFactory, scanjob=None)
     connection_results = factory.SubFactory(JobConnectionResultFactory)
-    inspection_results = factory.SubFactory(JobInspectionResultFactory)
 
     class Meta:
         """Factory options."""
@@ -228,17 +218,6 @@ class TaskConnectionResultFactory(DjangoModelFactory):
         model = models.TaskConnectionResult
 
 
-class TaskInspectionResultFactory(DjangoModelFactory):
-    """Factory for TaskInspectionResult model."""
-
-    job_inspection_result_id = factory.SelfAttribute("..job.inspection_results_id")
-
-    class Meta:
-        """Factory options."""
-
-        model = models.TaskInspectionResult
-
-
 class ScanTaskFactory(DjangoModelFactory):
     """Factory for ScanTask."""
 
@@ -251,7 +230,6 @@ class ScanTaskFactory(DjangoModelFactory):
     connection_result = factory.SubFactory(
         TaskConnectionResultFactory,
     )
-    inspection_result = factory.SubFactory(TaskInspectionResultFactory)
 
     class Meta:
         """Factory options."""

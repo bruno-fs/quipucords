@@ -748,14 +748,13 @@ class TestScanJob:
         scan_job, scan_task = create_scan_job(source, ScanTask.SCAN_TYPE_INSPECT)
 
         # Create an inspection system result
-        inspection_result = scan_task.inspection_result
         inspect_sys_result = SystemInspectionResult(
             name="Foo",
             status=SystemConnectionResult.SUCCESS,
             source=source,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(self.scan_job)
 
         fact = RawFact(
             name="fact_key",
@@ -777,14 +776,13 @@ class TestScanJob:
         scan_job, scan_task = create_scan_job(source, ScanTask.SCAN_TYPE_INSPECT)
 
         # Create an inspection system result
-        inspection_result = scan_task.inspection_result
         inspect_sys_result = SystemInspectionResult(
             name="Foo",
             status=SystemConnectionResult.SUCCESS,
             source=source,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(scan_job)
 
         fact = RawFact(
             name="fact_key",
@@ -806,14 +804,13 @@ class TestScanJob:
         scan_job, scan_task = create_scan_job(source, ScanTask.SCAN_TYPE_INSPECT)
 
         # Create an inspection system result
-        inspection_result = scan_task.inspection_result
         inspect_sys_result = SystemInspectionResult(
             name="Foo",
             status=SystemConnectionResult.SUCCESS,
             source=source,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(scan_job)
 
         fact = RawFact(
             name="fact_key",
@@ -835,14 +832,13 @@ class TestScanJob:
         scan_job, scan_task = create_scan_job(source, ScanTask.SCAN_TYPE_INSPECT)
 
         # Create an inspection system result
-        inspection_result = scan_task.inspection_result
         inspect_sys_result = SystemInspectionResult(
             name="Foo",
             status=SystemConnectionResult.SUCCESS,
             source=source,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(scan_job)
 
         fact = RawFact(
             name="fact_key",
@@ -871,9 +867,9 @@ class TestScanJob:
             name="Foo",
             status=SystemConnectionResult.SUCCESS,
             source=source,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(self.scan_job)
 
         fact = RawFact(
             name="fact_key",
@@ -886,9 +882,9 @@ class TestScanJob:
             name="Foo",
             status=SystemConnectionResult.FAILED,
             source=source,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result2.save()
+        inspect_sys_result2.scanjobs.add(self.scan_job)
 
         fact2 = RawFact(
             name="fact_key2",
@@ -931,17 +927,14 @@ class TestScanJob:
         scan_job, scan_tasks = create_scan_job_two_tasks(
             source1, source2, ScanTask.SCAN_TYPE_INSPECT
         )
-
-        inspection_result = scan_tasks[2].inspection_result
-        inspection_result2 = scan_tasks[3].inspection_result
         # Create an inspection system result
         inspect_sys_result = SystemInspectionResult(
             name="Foo1",
             status=SystemConnectionResult.SUCCESS,
             source=source1,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(self.scan_job)
 
         fact = RawFact(
             name="fact_key",
@@ -954,9 +947,9 @@ class TestScanJob:
             name="Foo2",
             status=SystemConnectionResult.SUCCESS,
             source=source1,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result2.save()
+        inspect_sys_result2.scanjobs.add(scan_job)
 
         fact2 = RawFact(
             name="fact_key2",
@@ -969,17 +962,17 @@ class TestScanJob:
             name="Foo3",
             status=SystemConnectionResult.FAILED,
             source=source2,
-            task_inspection_result=inspection_result2,
         )
         inspect_sys_result3.save()
+        inspect_sys_result3.scanjobs.add(scan_job)
 
         inspect_sys_result4 = SystemInspectionResult(
             name="Foo4",
             status=SystemConnectionResult.FAILED,
             source=source2,
-            task_inspection_result=inspection_result2,
         )
         inspect_sys_result4.save()
+        inspect_sys_result4.scanjobs.add(scan_job)
 
         url = reverse("v1:scanjob-inspection", args=(scan_job.id,))
         response = django_client.get(url, params={"ordering": "-name"})
@@ -1044,15 +1037,13 @@ class TestScanJob:
         )
 
         # Create an inspection system result
-        inspection_result = scan_tasks[2].inspection_result
-        inspection_result2 = scan_tasks[3].inspection_result
         inspect_sys_result = SystemInspectionResult(
             name="Foo1",
             status=SystemConnectionResult.SUCCESS,
             source=source1,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(scan_job)
 
         fact = RawFact(
             name="fact_key",
@@ -1065,9 +1056,9 @@ class TestScanJob:
             name="Foo2",
             status=SystemConnectionResult.SUCCESS,
             source=source1,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result2.save()
+        inspect_sys_result2.scanjobs.add(self.scan_job)
 
         fact2 = RawFact(
             name="fact_key2",
@@ -1080,17 +1071,17 @@ class TestScanJob:
             name="Foo3",
             status=SystemConnectionResult.FAILED,
             source=source2,
-            task_inspection_result=inspection_result2,
         )
         inspect_sys_result3.save()
+        inspect_sys_result3.scanjobs.add(self.scan_job)
 
         inspect_sys_result4 = SystemInspectionResult(
             name="Foo4",
             status=SystemConnectionResult.FAILED,
             source=source2,
-            task_inspection_result=inspection_result2,
         )
         inspect_sys_result4.save()
+        inspect_sys_result4.scanjobs.add(self.scan_job)
 
         url = reverse("v1:scanjob-inspection", args=(scan_job.id,))
         response = django_client.get(url, params={"source_id": source2.id})
@@ -1136,15 +1127,13 @@ class TestScanJob:
         )
 
         # Create an inspection system result
-        inspection_result = scan_tasks[2].inspection_result
-        inspection_result2 = scan_tasks[3].inspection_result
         inspect_sys_result = SystemInspectionResult(
             name="Foo",
             status=SystemConnectionResult.SUCCESS,
             source=source1,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(self.scan_job)
 
         fact = RawFact(
             name="fact_key",
@@ -1157,9 +1146,9 @@ class TestScanJob:
             name="Foo",
             status=SystemConnectionResult.SUCCESS,
             source=source1,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result2.save()
+        inspect_sys_result2.scanjobs.add(self.scan_job)
 
         fact2 = RawFact(
             name="fact_key2",
@@ -1172,17 +1161,17 @@ class TestScanJob:
             name="Foo",
             status=SystemConnectionResult.FAILED,
             source=source2,
-            task_inspection_result=inspection_result2,
         )
         inspect_sys_result3.save()
+        inspect_sys_result3.scanjobs.add(scan_job)
 
         inspect_sys_result4 = SystemInspectionResult(
             name="Foo",
             status=SystemConnectionResult.FAILED,
             source=source2,
-            task_inspection_result=inspection_result2,
         )
         inspect_sys_result4.save()
+        inspect_sys_result4.scanjobs.add(self.scan_job)
 
         url = reverse("v1:scanjob-inspection", args=(scan_job.id,))
         response = django_client.get(url)
@@ -1293,14 +1282,13 @@ class TestScanJob:
         scan_job, scan_task = create_scan_job(source, ScanTask.SCAN_TYPE_INSPECT)
 
         # Create an inspection system result
-        inspection_result = scan_task.inspection_result
         inspect_sys_result = SystemInspectionResult(
             name="Foo",
             status=SystemConnectionResult.SUCCESS,
             source=source,
-            task_inspection_result=inspection_result,
         )
         inspect_sys_result.save()
+        inspect_sys_result.scanjobs.add(self.scan_job)
 
         fact = RawFact(
             name="fact_key",

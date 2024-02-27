@@ -2,6 +2,7 @@
 
 These models are used in the REST definitions.
 """
+
 import logging
 from datetime import datetime
 from functools import cached_property
@@ -12,7 +13,6 @@ from django.utils.translation import gettext as _
 
 from api import messages
 from api.connresult.model import TaskConnectionResult
-from api.inspectresult.model import TaskInspectionResult
 from api.scantask.queryset import ScanTaskQuerySet
 from api.source.model import Source
 
@@ -70,11 +70,6 @@ class ScanTask(models.Model):
     # Connect task field
     connection_result = models.OneToOneField(
         TaskConnectionResult, null=True, on_delete=models.CASCADE
-    )
-
-    # Inspect task field
-    inspection_result = models.OneToOneField(
-        TaskInspectionResult, null=True, on_delete=models.CASCADE
     )
 
     # custom queryset / object manager

@@ -3,13 +3,12 @@
 import pytest
 
 from api.models import (
-    JobInspectionResult,
     RawFact,
     ScanJob,
     ScanTask,
     SystemInspectionResult,
-    TaskInspectionResult,
 )
+from tests.factories import ScanJobFactory
 from tests.utils.facts import random_name, random_value
 
 
@@ -25,14 +24,12 @@ def raw_facts_list():
 @pytest.fixture
 def inspection_scantask(raw_facts_list):
     """Scantask instance mapped to raw_facts_list."""
-    task_inspection_result = TaskInspectionResult.objects.create(
-        job_inspection_result=JobInspectionResult.objects.create()
-    )
+    scanjob = ScanJobFactory(scan_type=ScanTask.SCAN_TYPE_INSPECT)
     for i, facts in enumerate(raw_facts_list):
         system_inspection_result = SystemInspectionResult.objects.create(
             name=i,
-            task_inspection_result=task_inspection_result,
         )
+        system_inspection_result.scanjobs.add(scanjob)
         raw_fact_instances = [
             RawFact(
                 name=fact_name,
@@ -45,7 +42,6 @@ def inspection_scantask(raw_facts_list):
 
     scan_task = ScanTask.objects.create(
         scan_type=ScanTask.SCAN_TYPE_INSPECT,
-        inspection_result=task_inspection_result,
         job=ScanJob.objects.create(),
     )
     return scan_task

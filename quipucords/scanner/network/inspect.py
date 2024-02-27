@@ -142,9 +142,9 @@ class InspectTaskRunner(ScanTaskRunner):
                 name=host,
                 status=SystemInspectionResult.UNREACHABLE,
                 source=self.scan_task.source,
-                task_inspection_result=self.scan_task.inspection_result,
             )
             sys_result.save()
+            sys_result.scanjobs.add(self.scan_job)
 
     def _inspect_scan(  # noqa: PLR0912, PLR0915, C901
         self, manager_interrupt, connected
@@ -314,9 +314,9 @@ class InspectTaskRunner(ScanTaskRunner):
             name=ansible_results.host,
             status=ansible_results.status,
             source=self.scan_task.source,
-            task_inspection_result=self.scan_task.inspection_result,
         )
         sys_result.save()
+        sys_result.scanjobs.add(self.scan_job)
         raw_facts = []
         for fact_key, fact_value in facts.items():
             raw_facts.append(
