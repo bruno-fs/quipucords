@@ -2,5 +2,6 @@
   "extends": ["config:recommended", "group:all"],
   "python": {
     "enabled": false
-  }
+  },
+  "schedule": []
 }
