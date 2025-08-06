@@ -2,5 +2,10 @@
   "extends": ["group:all"],
   "python": {
     "enabled": false
+  },
+  "rpm": {
+    "includePaths": [
+      "lockfiles/**"
+    ]
   }
 }
