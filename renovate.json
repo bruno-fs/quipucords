@@ -1,11 +1,6 @@
 {
-  "extends": ["group:all"],
+  "extends": ["config:recommended", "group:all"],
   "python": {
     "enabled": false
-  },
-  "rpm": {
-    "includePaths": [
-      "lockfiles/**"
-    ]
   }
 }
