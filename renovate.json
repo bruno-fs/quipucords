@@ -1,7 +1,7 @@
 {
-  "extends": ["config:recommended", "group:all"],
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "groupName": "all",
   "python": {
     "enabled": false
-  },
-  "schedule": []
+  }
 }
